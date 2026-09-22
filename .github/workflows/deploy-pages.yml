@@ -29,7 +29,9 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # npm ci can omit Rolldown's platform-native optional package when the
+        # lockfile was generated on a different operating system.
+        run: npm install --include=optional --no-audit --no-fund
 
       - name: Build
         run: npm run build
